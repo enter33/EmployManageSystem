@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<!--套用layout模板-->
+<div class="container">
+    <div style="margin-bottom:5px" class="clearfix">
+        <a class="btn btn-success" href="/admin/add/">
+            <span class="glyphicon glyphicon-plus-sign" style="height: 18px">
+            新建管理员账户
+            </span>
+        </a>
+        <!--搜索按钮-->
+        <div style="float: right; width: 300px">
+            <!--表单有提交功能-->
+            <form method="get">
+                <div class="input-group">
+                    <!--name字段表示以搜索框内容进行提交-->
+                    <input type="text" name="q" class="form-control" placeholder="请输入搜索的内容..." value="{{ search_data }}">
+                    <span class="input-group-btn">
+                        <!--type="submit"提交-->
+                    <button class="btn btn-default" type="submit">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true" style="height: 20px"></span>
+                    </button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 表单 -->
+    <div class="bs-example" data-example-id="panel-without-body-with-table">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                管理员列表
+            </div>
+            <!-- 表格 -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>用户名</th>
+                    <th>密码</th>
+                    <th>重置密码</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in page_queryset %}
+                <tr>
+                    <th scope="row">{{ item.id }}</th>
+                    <td>{{ item.username }}</td>
+                    <td>*******</td>
+                    <td>
+                        <a href="/admin/{{ item.id }}/reset/">重置密码</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" href="/admin/{{ item.id }}/edit/">编辑</a>
+                        <a class="btn btn-danger btn-xs" href="/admin/delete/?nid={{ item.id }}">删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- <span class="sr-only">(current)</span> -->
+    <ul class="pagination">
+        {{ page_string }}
+    </ul>
+
+</div>
+{% endblock %}

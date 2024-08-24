@@ -1,0 +1,67 @@
+{% extends 'layout.html'%}
+<!-- 主题内容 -->
+{% block content %}
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+            批量上传
+        </div>
+        <!--面板内容-->
+        <div class="panel-body">
+            <!--enctype属性保证上传的数据是具体内容而不是名称-->
+
+            <form method="post" enctype="multipart/form-data" action="/depart/multi/">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="file" name="exc">
+                </div>
+                <input type="submit" value="上传" class="btn btn-info btn-sm">
+            </form>
+        </div>
+    </div>
+    <div style="margin-bottom:10px">
+
+        <a class="btn btn-success" href="/depart/add/">
+            <span class="glyphicon glyphicon-plus-sign" style="height: 20px">
+            新建部门
+            </span>
+        </a>
+    </div>
+    <!-- 表单 -->
+    <div class="bs-example" data-example-id="panel-without-body-with-table">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                部门列表
+            </div>
+            <!-- 表格 -->
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>名称</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in page_queryset %}
+                <tr>
+                    <th scope="row">{{ item.id }}</th>
+                    <td>{{ item.title }}</td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" href="/depart/{{ item.id }}/edit/">编辑</a>
+                        <a class="btn btn-danger btn-xs" href="/depart/delete/?nid={{ item.id }}">删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <ul class="pagination">
+        {{ page_string }}
+    </ul>
+</div>
+{% endblock %}
+

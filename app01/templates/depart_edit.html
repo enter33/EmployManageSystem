@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<!--套用layout模板-->
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"> 修改部门 </h3>
+        </div>
+        <div class="panel-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>标 题</label>
+                    <!-- 默认值 placeholder="{{ title }}"-->
+                    <input type="text" class="form-control" name="title" value="{{ title }}">
+                </div>
+                <!-- 没有写action，表明提交给当前页面-->
+                <button type="submit" class="btn btn-primary">提 交</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

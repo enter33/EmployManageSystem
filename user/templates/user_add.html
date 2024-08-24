@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href=" {% static 'plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css' %} ">
+{% endblock %}
+
+{% block content %}
+<!--套用layout模板-->
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"> 新建用户 </h3>
+        </div>
+        <div class="panel-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>姓 名</label>
+                    <input type="text" class="form-control" placeholder="姓名" name="name">
+                </div>
+                <div class="form-group">
+                    <label>密 码</label>
+                    <input type="text" class="form-control" placeholder="密码" name="password">
+                </div>
+                <div class="form-group">
+                    <label>年 龄</label>
+                    <input type="text" class="form-control" placeholder="年龄" name="age">
+                </div>
+                <div class="form-group">
+                    <label>余 额</label>
+                    <input type="text" autocomplete="off" class="form-control" placeholder="余额" name="salary">
+                </div>
+                <div class="form-group">
+                    <label>入职时间</label>
+                    <input id="dt" autocomplete="off" type="text" class="form-control"  placeholder="入职时间" name="create_time">
+                </div>
+                <div class="form-group">
+                    <label>性 别</label>
+                    <select class="form-control" name="gender">
+                        <option value="0">男</option>
+                        <option value="1">女</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>所属部门</label>
+                    <select class="form-control" name="department">
+                        {% for item in depart_list %}
+                        <option value="{{ item.id }}">{{ item.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">提 交</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src=" {% static 'plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js' %} "></script>
+<script src=" {% static 'plugins/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.zh-CN.js' %} "></script>
+<script>
+        $(function(){
+            $('#dt').datetimepicker({
+            minView: "month",
+            format: 'yyyy-mm-dd',
+            start: '0',
+            language: 'zh-CN',
+            autoclose: true
+            });
+        })
+</script>
+{% endblock %}
